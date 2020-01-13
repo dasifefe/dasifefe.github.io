@@ -1,0 +1,105 @@
+* {
+background-color: none;
+background: none;
+color: inherit;
+margin: 0px;
+padding: 0px;
+border: 0px;
+outline: none;
+font-family: inherit;
+font-weight: inherit;
+text-decoration: inherit;
+}
+
+html {
+font-family: "Source Sans Pro", "Roboto", sans;
+word-break: break-word;
+word-wrap: break-word;
+text-size-adjust: none;
+text-decoration: none;
+background-color: white;
+}
+
+body {
+max-width: 800px;
+}
+
+header, article, footer {
+padding-left: 20pt;
+padding-right: 20pt;
+}
+
+header {
+display: block;
+}
+
+footer {
+border-top: 1pt solid;
+margin-top: 1em;
+padding-bottom: 1em;
+}
+
+h1, h2 {
+font-weight: bolder;
+text-decoration: underline;
+}
+
+h2 {
+font-style: oblique;
+}
+
+h1, h2, p, pre, figure, figcaption {
+margin-top: 1rem;
+}
+
+ul, ol {
+padding-top: 1em;
+padding-left: 2em;
+}
+
+a {
+color: blue;
+font-weight: bolder;
+}
+
+a:active {
+text-decoration: underline;
+}
+
+a:hover {
+background-color: blue;
+color: white;
+text-decoration: underline;
+}
+
+a:focus {
+text-decoration: underline;
+}
+
+span {
+display: inline-block;
+}
+
+figure {
+display: block;
+max-width: 100%;
+padding: 1em;
+background-color: #e0e0e0;
+}
+
+figcaption {
+font-style: oblique;
+}
+
+img {
+display: block;
+max-width: 100%;
+margin-left: auto;
+margin-right: auto;
+}
+
+pre, quote {
+font-family: "Source Code Pro", "Roboto Mono", mono;
+padding-left: 20pt;
+padding-right: 20pt;
+}
