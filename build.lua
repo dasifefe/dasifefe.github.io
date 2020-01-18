@@ -38,13 +38,13 @@ local build_target = function (title, target, target_directory, reverse)
 		local template_target_array_line = nil
 		local date = nil
 		print("Building \"" .. list_line .. "\".")
-		date = string.match(list_line, target .. "%-(%d%d%d%d%-%d%d%-%d%d)%-.+")
+		date = string.match(list_line, target .. "%-(%d%d%d%d%-%d%d%-%d%d).+")
 		if date ~= "0000-00-00" then
 			template_target_array_line = array_line_from_file("./templates/" .. list_line)
 			-- Index.
 			index_text = index_text .. "<li>"
 			if target == "post" then
-				index_text = index_text .. string.match(list_line, "(%d%d%d%d%-%d%d%-%d%d)-.+") .. " "
+				index_text = index_text .. date .. " "
 			end
 			index_text = index_text .. "<a href=\"" .. target_directory .. list_line .. "\">"
 			index_text = index_text .. string.match(template_target_array_line[1], "<h1>(.+)</h1>") .. "</a></li>\n"
