@@ -22,6 +22,8 @@ background-color: white;
 
 body {
 max-width: 800px;
+margin-left: 40pt;
+margin-right: 40pt;
 }
 
 header, article, footer {
@@ -41,20 +43,19 @@ padding-bottom: 1em;
 
 h1, h2 {
 font-weight: bolder;
-text-decoration: underline;
 }
 
 h2 {
 font-style: oblique;
 }
 
-h1, h2, p, pre, figure, figcaption {
+h1, h2, p, quote, pre, figure, figcaption {
 margin-top: 1rem;
 }
 
 ul, ol {
-padding-top: 1em;
-padding-left: 2em;
+padding-top: 1rem;
+padding-left: 2rem;
 }
 
 a {
@@ -80,11 +81,15 @@ span {
 display: inline-block;
 }
 
-figure {
+b {
+font-weight: bolder;
+}
+
+figure, quote, pre {
 display: block;
-max-width: 100%;
-padding: 1em;
 background-color: #e0e0e0;
+max-width: 100%;
+padding: 1rem;
 }
 
 figcaption {
@@ -100,6 +105,4 @@ margin-right: auto;
 
 pre, quote {
 font-family: "Source Code Pro", "Roboto Mono", mono;
-padding-left: 20pt;
-padding-right: 20pt;
 }

@@ -66,8 +66,8 @@ local build_target = function (title, target, target_directory, reverse)
 	end
 end
 
-os.execute("rm page-*.html")
-os.execute("rm post-*.html")
+os.execute("rm -f page-*.html")
+os.execute("rm -f post-*.html")
 
 index_text = text_from_file("./templates/template-top-1.html")
 index_text = index_text .. "<title>Dasifefe</title>" .. "\n"
