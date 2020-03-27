@@ -12,16 +12,17 @@ text-decoration: inherit;
 }
 
 html {
-font-family: "Source Sans Pro", "Roboto", sans;
+font-family: "Roboto Light", "Roboto", "Source Sans Pro", sans;
 word-break: break-word;
 word-wrap: break-word;
 text-size-adjust: none;
 text-decoration: none;
 background-color: white;
+font-size: 13pt;
 }
 
 body {
-max-width: 800px;
+max-width: 600pt;
 margin-left: 40pt;
 margin-right: 40pt;
 }
