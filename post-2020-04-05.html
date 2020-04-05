@@ -16,13 +16,13 @@
 </header>
 <article>
 <h1>Multiple ECS in my personal game project</h1>
-<p>I was thinking about why I have not being able to use ECS on my game project. In my understanding of ECS, every component of a type will be stored in a single container for that component type, which is good for data contiguity. This means that all `Transform` components will be contained in one array, no matter if some `Transform` components belong to entities of type A and others belong to entities of type B.</p>
+<p>I was thinking about why I have not being able to use ECS on my game project. In my understanding of ECS, every component of a type will be stored in a single container for that component type, which is good for data contiguity. This means that all <span>`Transform`</span> components will be contained in one array, no matter if some <span>`Transform`</span> components belong to entities of type A and others belong to entities of type B.</p>
 <p>My problem is that I like to follow these two rules, which I strongly believe to be good game design rules:</p>
 <ul>
 <li>Have a defined maximum number of entities in my game, for each entity type (Characters: 20; Objects type A: 100; Objects type B: 40; Environment props: 1000);</li>
 <li>Have a priority of entity types to be updated (first update characters, then objects type A, then objects type B, and then environment props).</li>
 </ul>
-<p>In the usual ECS, the `Transform` components would be all inside a single array `array_transform: [Transform; 1160]`, which makes difficult to follow the rules above. I would have to have extra variables to keep track of the total of `Transform` for each entity type, and I would have to keep track of where to activate each element in the array or sort the elements to keep the priority of update. Awkward solutions.</p>
+<p>In the usual ECS, the <span>`Transform`</span> components would be all inside a single array <span>`array_transform: [Transform; 1160]`</span>, which makes difficult to follow the rules above. I would have to have extra variables to keep track of the total of <span>`Transform`</span> for each entity type, and I would have to keep track of where to activate each element in the array or sort the elements to keep the priority of update. Awkward solutions.</p>
 <h2>Solution: multiple ECS</h2>
 <p>Instead of shoving all components in one array for each type of component, having a contained ECS for each entity type would satisfy my self-imposed rules:</p>
 <pre>
