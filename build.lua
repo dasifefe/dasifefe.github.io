@@ -23,9 +23,9 @@ local array_line_from_file = function (file_name)
 	return array_line
 end
 
-local build_target = function (title, target, target_directory, reverse)
+local build_target = function (section, target, target_directory, reverse)
 	print("Building list of " .. target .. ".")
-	index_text = index_text .. "<h1>" .. title .. "</h1>" .. "\n"
+	index_text = index_text .. "<h1>" .. section .. "</h1>" .. "\n"
 	if reverse == true then
 		index_text = index_text .. "<ol reversed>\n"
 	else
@@ -46,11 +46,14 @@ local build_target = function (title, target, target_directory, reverse)
 			if target == "post" then
 				index_text = index_text .. date .. " "
 			end
+			title = string.match(template_target_array_line[1], "<h1>(.+)</h1>")
 			index_text = index_text .. "<a href=\"" .. target_directory .. list_line .. "\">"
-			index_text = index_text .. string.match(template_target_array_line[1], "<h1>(.+)</h1>") .. "</a></li>\n"
+			index_text = index_text .. title .. "</a></li>\n"
 			-- Generate target.
 			target_text = text_from_file("./templates/template-top-1.html")
-			target_text = target_text .. "<title>Dasifefe - " .. string.match(template_target_array_line[1], "<h1>(.+)</h1>") .. "</title>" .. "\n"
+			target_text = target_text .. "<title>Dasifefe - " .. title .. "</title>" .. "\n"
+			target_text = target_text .. "<meta name=\"title\" content=\"Dasifefe - " .. title .. "\">" .. "\n"
+			target_text = target_text .. "<meta property=\"twitter:title\" content=\"Dasifefe - " .. title .. "\">" .. "\n"
 			target_text = target_text .. text_from_file("./templates/template-top-2.html")
 			target_text = target_text .. text_from_file("./templates/" .. list_line)
 			target_text = target_text .. text_from_file("./templates/template-bottom.html")
