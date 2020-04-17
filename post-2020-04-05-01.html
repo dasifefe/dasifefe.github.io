@@ -20,15 +20,6 @@
         <h1><a href="./index.html">Dasifefe</a></h1>
         <p>Programmer in Rust programming language, biologist and illustrator. Interested in operating system
             development and game development.</p>
-        <h2>Profiles</h2>
-        <ul>
-            <li><a href="https://twitter.com/dasifefe" rel="me">Twitter</a></li>
-            <li><a href="https://mastodon.social/web/accounts/1084473" rel="me">Mastodon Social</a></li>
-            <li><a href="https://fosstodon.org/web/accounts/226415" rel="me">Mastodon FOSS</a></li>
-            <li><a href="https://mastodon.gamedev.place/web/accounts/139783" rel="me">Mastodon Game Development</a></li>
-            <li><a href="https://mastodon.art/web/accounts/272898" rel="me">Mastodon Art</a></li>
-            <li><a href="https://github.com/dasifefe" rel="me">GitHub</a></li>
-        </ul>
     </header>
     <article>
 <h1>Multiple ECS in my personal game project</h1>
@@ -62,7 +53,7 @@ pub struct GroupObjectA {
 }
 </pre>
 </figure>
-<p>It is natural to keep track of how many components can be used for each entity type, because it is the size of the array.</p>
+<p>The number of components that can be used for each entity type is simply the number of elements in the array, which means that there is less logical steps to keep track.</p>
 <figure>
 <pre>
 | First update characters:
@@ -81,6 +72,30 @@ pub struct GroupObjectA {
 `-> Update all Objects:model --------. <- SystemUpdateModel
 .------------------------------------´
 `-> Update all Objects:effect......... <- SystemUpdateObjectAEffect
+</pre>
+<pre>
+fn update_group_character(&mut self) {
+    self.update_transform(&mut self,
+        /* Pass arrays needed to update character transform. */);
+    self.update_model(&mut self,
+        /* Pass arrays needed to update character model. */);
+    self.update_character_status(&mut self,
+        /* Pass arrays needed to update character status. */);
+}
+
+fn update_group_object(&mut self) {
+    self.update_transform(&mut self,
+        /* Pass arrays needed to update object transform. */);
+    self.update_model(&mut self,
+        /* Pass arrays needed to update object model. */);
+    self.update_object_effect(&mut self,
+        /* Pass arrays needed to update object effect. */);
+}
+
+pub fn update(&mut self) {
+    self.update_group_character(&mut self);
+    self.update_group_object(&mut self);
+}
 </pre>
 </figure>
 <p>Systems can be reused, and priority of update is easy to be done running systems separately, first running for characters (transform, model, then status), then running for objects type A (transform, model, then effect).</p>

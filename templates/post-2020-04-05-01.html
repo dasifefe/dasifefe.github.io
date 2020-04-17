@@ -29,7 +29,7 @@ pub struct GroupObjectA {
 }
 </pre>
 </figure>
-<p>It is natural to keep track of how many components can be used for each entity type, because it is the size of the array.</p>
+<p>The number of components that can be used for each entity type is simply the number of elements in the array, which means that there is less logical steps to keep track.</p>
 <figure>
 <pre>
 | First update characters:
@@ -48,6 +48,30 @@ pub struct GroupObjectA {
 `-> Update all Objects:model --------. <- SystemUpdateModel
 .------------------------------------´
 `-> Update all Objects:effect......... <- SystemUpdateObjectAEffect
+</pre>
+<pre>
+fn update_group_character(&mut self) {
+    self.update_transform(&mut self,
+        /* Pass arrays needed to update character transform. */);
+    self.update_model(&mut self,
+        /* Pass arrays needed to update character model. */);
+    self.update_character_status(&mut self,
+        /* Pass arrays needed to update character status. */);
+}
+
+fn update_group_object(&mut self) {
+    self.update_transform(&mut self,
+        /* Pass arrays needed to update object transform. */);
+    self.update_model(&mut self,
+        /* Pass arrays needed to update object model. */);
+    self.update_object_effect(&mut self,
+        /* Pass arrays needed to update object effect. */);
+}
+
+pub fn update(&mut self) {
+    self.update_group_character(&mut self);
+    self.update_group_object(&mut self);
+}
 </pre>
 </figure>
 <p>Systems can be reused, and priority of update is easy to be done running systems separately, first running for characters (transform, model, then status), then running for objects type A (transform, model, then effect).</p>

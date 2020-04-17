@@ -107,4 +107,6 @@ margin-right: auto;
 
 pre, quote {
 font-family: "Roboto Mono", mono;
+word-wrap: break-word;
+white-space: pre-wrap;
 }
