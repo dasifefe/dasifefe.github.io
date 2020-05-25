@@ -25,11 +25,13 @@ end
 
 local build_target = function (section, target, target_directory, reverse)
 	print("Building list of " .. target .. ".")
-	index_text = index_text .. "<h1>" .. section .. "</h1>" .. "\n"
-	if reverse == true then
-		index_text = index_text .. "<ol reversed>\n"
-	else
-		index_text = index_text .. "<ol>\n"
+	if target ~= "unlisted" then
+		index_text = index_text .. "<h1>" .. section .. "</h1>" .. "\n"
+		if reverse == true then
+			index_text = index_text .. "<ol reversed>\n"
+		else
+			index_text = index_text .. "<ol>\n"
+		end
 	end
 	list_array_line = array_line_from_file(temporary_file_name)
 	for list_line_index, list_line in ipairs(list_array_line) do
@@ -42,13 +44,17 @@ local build_target = function (section, target, target_directory, reverse)
 		if date ~= "0000-00-00" then
 			template_target_array_line = array_line_from_file("./templates/" .. list_line)
 			-- Index.
-			index_text = index_text .. "<li>"
-			if target == "post" then
-				index_text = index_text .. date .. " "
+			if target ~= "unlisted" then
+				index_text = index_text .. "<li>"
+				if target == "post" then
+					index_text = index_text .. date .. " "
+				end
 			end
 			title = string.match(template_target_array_line[1], "<h1>(.+)</h1>")
-			index_text = index_text .. "<a href=\"" .. target_directory .. list_line .. "\">"
-			index_text = index_text .. title .. "</a></li>\n"
+			if target ~= "unlisted" then
+				index_text = index_text .. "<a href=\"" .. target_directory .. list_line .. "\">"
+				index_text = index_text .. title .. "</a></li>\n"
+			end
 			-- Generate target.
 			target_text = text_from_file("./templates/template-top-1.html")
 			target_text = target_text .. "<title>Dasifefe - " .. title .. "</title>" .. "\n"
@@ -62,15 +68,18 @@ local build_target = function (section, target, target_directory, reverse)
 			io.close(target_output)
 		end
 	end
-	if reverse == true then
-		index_text = index_text .. "</ol>\n"
-	else
-		index_text = index_text .. "</ol>\n"
+	if target ~= "unlisted" then
+		if reverse == true then
+			index_text = index_text .. "</ol>\n"
+		else
+			index_text = index_text .. "</ol>\n"
+		end
 	end
 end
 
 os.execute("rm -f page-*.html")
 os.execute("rm -f post-*.html")
+os.execute("rm -f unlisted-*.html")
 
 index_text = text_from_file("./templates/template-top-1.html")
 index_text = index_text .. "<title>Dasifefe</title>" .. "\n"
@@ -80,6 +89,8 @@ os.execute("ls ./templates | grep \"^page-*\" > " .. temporary_file_name)
 build_target("Pages", "page", "./", false)
 os.execute("ls ./templates | grep \"^post-*\" | sort -r > " .. temporary_file_name)
 build_target("Posts", "post", "./", true)
+os.execute("ls ./templates | grep \"^unlisted-*\" | sort -r > " .. temporary_file_name)
+build_target("Unlisted", "unlisted", "./", true)
 
 index_text = index_text .. text_from_file("./templates/template-bottom.html")
 index_output = io.open("./index.html", "w")
